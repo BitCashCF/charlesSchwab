@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  		<meta charset="utf-8">
+  		<title>
+  			Charles Schwab Coding Challenge: Breadcrumb Navigation
+  		</title>
+  		<meta name="description" content="Breadcrumb Coding Challenge">
+  		<meta name="author" content="Robert Snodgrass">
+
+  		<!--Import our CSS and JS Files-->
+  		<link rel="stylesheet" href="csChallengesCSS.css">
+  		<script src="csChallengesJS.js"></script>
+
+  		<!--Potential <script> tags to load files, widgets, Google Analytics, CDN, etc. could be placed here 	-->
+		<!--These scripts can be given async and/or defer attributes depending on how long it takes to load		-->
+		<!--Alternatively, these can be placed just before the end of the BODY tag depending on need/size/etc.	-->
+		<!--Common examples might be: jQuery, Bootstrap, LESS/SASS, FontAwesome, and others. 					-->
+
+		<!--For example, LESS could be imported: 
+			<link rel="stylesheet/less" type="text/css" href="styles.less" />
+			<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.2/less.min.js" ></script>
+		-->	
+	</head>
+
+	<body>
+		<header>
+			<h1> 
+				<span class="addPadding">Charles Schwab Coding Challenge</span>
+			</h1>
+		</header>
+
+		<section role="breadcrumb challenge">
+			<h2>
+				<span class="addPadding">Breadcrumb Navigation</span>
+			</h2>
+
+			<nav id="navBar" role="navigation">
+				<ul class="breadcrumbs">
+				<!--It would be great to run a script to generate the li elements by mapping through a hardcoded array	-->
+				<!--I started doing this, but ultimately decided I'll leave this as is for clarity purposes 			-->
+				<!--It could help cut down on the code and make everything a bit more clean overall given repetition	-->
+				  <li onclick="setBreadcrumbColor(this)" class='active visitedAlready'>
+				  	<a href="#" title="Access the first section"  class='active visitedAlready'>
+				  		1. Title
+				  	</a>
+			  	  </li>
+				  <li onclick="setBreadcrumbColor(this)" class='unvisited'>
+				  	<a href="#" title="Access the second section">
+				  		2. Title
+				  	</a>
+				  </li>
+
+				  <li onclick="setBreadcrumbColor(this)" class='unvisited'>
+				  	<a href="#" title="Access the third section">
+				  		3. Title
+				  	</a>
+				  </li>
+
+				  <li onclick="setBreadcrumbColor(this)" class='unvisited'>
+				  	<a href="#" title="Access the last section">
+				  		4. Title
+				  	</a>
+				  </li>
+				</ul>
+			</nav>
+		</section> <!--End of breadcrumbs section-->
+
+		<section role="progress bar challenge" class="addPadding">
+			<h2>
+				<span>Progress Bars</span>
+			</h2>
+
+			<section role="progress bars" class="topMargin">
+				<div class="barContainer" style="position:relative">
+					<div class="centeredProgress">First Bar Progress: <span id='percentValue1'>50%</span> </div>
+					<div id="barProgress1" style="width: 50%"></div>
+				</div>
+				<br>
+				<div class="barContainer">
+					<div class="centeredProgress">Second Bar Progress: <span id='percentValue2'>30%</span> </div>
+					<div id="barProgress2" style="width: 30%"></div>
+				</div>
+				<br>
+				<div class="barContainer">
+					<div class="centeredProgress">Third Bar Progress: <span id='percentValue3'>10%</span> </div>
+					<div id="barProgress3" style="width: 10%"></div>
+				</div>
+				<br>
+			</section>
+
+			<section role="Drop Down Selector and Buttons">
+				<select id="barSelection" onChange="chooseBar(this.value)"> 
+	  				<option value="1" selected='selected'>First</option>
+					<option value="2">Second</option>
+					<option value="3">Third</option>
+				</select>
+
+				<div id="buttonContainer" style="display: inline-block">
+					<button id="button1" onclick="modifyProgress(-25)"> -25</button>
+					<button id="button2" onclick="modifyProgress(-10)"> -10</button>
+					<button id="button3" onclick="modifyProgress(10)"> +10</button>
+					<button id="button4" onclick="modifyProgress(25)"> +25</button>	
+				</div>
+			</section>
+		</section> <!--End of buttons section-->
+	</body>
+</html>
+
+

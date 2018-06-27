@@ -1,0 +1,314 @@
+/* 
+  I've chosen to use standard CSS for this challenge, but want to mention that utilizing a preprocessor
+  such as LESS/SASS could significantly cut down the amount of coding here.  The exercise specifically
+  calls for CSS, which I've taken to mean "we want to see CSS instead of something like SCSS."  We'd have
+  to either import the file directly into the local directory (which seems counter to this example given
+  that only CSS and markup are requested) or import as needed from a CDN (which technically wouldn't change
+  the parameters of this example).  However, to demonstrate some perspective:
+
+  Preprocessors add a programmable layer on top of CSS, which is otherwise (for the most part) a collection of
+  static objects that contain properties for their selectors (classes, IDs, etc.), which in turn grant us access
+  to a number of useful options:
+    Nesting Hierarchy: We can visually see classes nested within containers, which is easier to read and cleaner,
+      allowing us to see properties passed down to children 
+    CSS File Concatenation: We can dictate when and how the CSS files are loaded and parsed, which makes it easier
+      to determine which properties will be utilized with cascading 
+    Extended Calculations: We can calculate numeric properties such as width and height more easily
+    Mixins: The ability to define a set of properties and drop them into a selector to quickly add those values
+    Variables: Define something that is used repeatedly and import where needed; especially useful for colors;
+      defaults are a good option here 
+    Logic: We can use if statements to set properties depending on various options/criteria
+    Color Functions: Built-in functions such as lighten, darken, etc., which calculate mathematically
+
+  All in all, a preprocessor lets us cut down the CSS code significantly while making it more readable.
+*/
+
+/*Set some global styling*/
+body {
+  background-color: #eee;
+}
+
+ul {
+  padding: 0px 20px;
+  list-style: none;
+}
+
+.addPadding{
+  padding: 50px 20px 20px 20px;
+}
+
+.topMargin{
+  margin-bottom: 20px;
+}
+
+/********************************************************************************************/
+/****************These classes are for the breadcrumbs challenge specifically****************/
+/********************************************************************************************/
+
+.breadcrumbs ul {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.breadcrumbs li {
+  float: left;
+  width: 25%; /*Depends on number of breadcrumbs - 100/x */
+  background-color: grey;
+}
+
+.breadcrumbs a {
+  position: relative;
+  display: block;
+  padding: 10px 0px 10px 28%;  
+  font-size: 21px;
+  font-weight: 200;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/*Use a transition for hover to show difference in color*/
+/*Account for other web browsers to ensure cross-compatibility*/
+.breadcrumbs a:hover {
+    background-color: red !important;
+    -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+/*Required because first child doesn't have a triangle on the left*/
+.breadcrumbs a span:first-child {
+  display: inline-block;
+  width: 22px;  /*Has to match computed height of the breadcrumb*/
+  height: 22px; /*Has to match computed height of the breadcrumb*/
+  padding: 2px;
+  margin-right: 5px;
+  border: 2px solid #aaa;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+/*Styling for the triangles*/
+.breadcrumbs a:before,
+.breadcrumbs a:after {
+  content: '';
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 1;
+  display: block;
+  border-top: 22px solid transparent; /*Has to match computed height of the breadcrumb*/
+  border-bottom: 22px solid transparent; /*Has to match computed height of the breadcrumb*/
+  border-left: 16px solid transparent;
+}
+
+/*Necessary to create space between breadcrumbs*/
+.breadcrumbs a:before {
+  margin-left: 1px;  
+  border-left-color: white;
+}
+
+/*Color the triangle appropriately*/
+.breadcrumbs a:after {
+  border-left-color: grey;
+}
+
+/*Required because last child doesn't have a triangle on the left*/
+.breadcrumbs li:last-child a:before,
+.breadcrumbs li:last-child a:after {
+  display: none;
+}
+
+/********************************************************************************************/
+/*These classes are used in conjunction with javascript for active/visited/unvisted coloring*/
+/********************************************************************************************/
+.breadcrumbs li a.visitedAlready:not(.active):after {
+  border-left-color: navy;
+}
+
+.breadcrumbs li a.active:after {
+  border-left-color: orange;
+  -webkit-transition:  border-left-color 300ms linear;
+  -ms-transition:  border-left-color 300ms linear;
+  transition:  border-left-color 300ms linear;
+}
+
+.breadcrumbs a:hover:after {
+  border-left-color: red !important;
+  -webkit-transition: border-left-color 300ms linear;
+  -ms-transition: border-left-color 300ms linear;
+  transition: border-left-color 300ms linear;
+}
+
+.active{
+  background-color: orange !important;
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+/*Don't change color on the active breadcrumb*/
+.visitedAlready:not(.active){
+  background-color: navy !important;
+}
+
+.breadcrumbs:not(.visitedAlready):not(.active){
+  background-color: #eee !important;
+}
+
+/********************************************************************************************/
+/********************Media Queries to resize the fonts for responsiveness********************/
+/********************************************************************************************/
+@media (max-width: 400px) { 
+  .breadcrumbs a {
+    font-size: 13px;
+  }
+  .breadcrumbs a:before,
+  .breadcrumbs a:after {
+    border-top-width: 18px; /*Has to match computed height of the resized breadcrumb*/
+    border-bottom-width: 18px; /*Has to match computed height of the resized breadcrumb*/
+    border-left-width: 13px;
+  }
+}
+
+/*Quick and dirty dealing with the h1 and h2 font sizing*/
+@media (max-width: 890px){
+  h1{
+    font-size: 22px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 6250px){
+  h1{
+    font-size: 16px;
+  }
+
+  h2{
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 500px){
+  h1{
+    font-size: 14px;
+  }
+
+  h2{
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 420px){
+  h1{
+    font-size: 10px;
+  }
+
+  h2{
+    font-size: 8px;
+  }
+
+}
+
+@media (max-width: 375px){
+  h1{
+    font-size: 10px;
+  }
+
+}
+
+/********************************************************************************************/
+/***************These classes are for the progress bars challenge specifically***************/
+/********************************************************************************************/
+
+button, select{
+    background-color: navy; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+select{
+ font-size: 25px;
+}
+
+button:disabled{
+  background-color: grey;
+  cursor: wait;
+}
+
+button:hover{
+  background-color: orange;
+  -webkit-transition:  background-color 150ms linear;
+  -ms-transition:   background-color 150ms linear;
+  transition:  background-color 150ms linear;
+}
+
+.barContainer{
+  width: 100%;
+  background-color: grey;
+  color: white;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+#barProgress1,
+#barProgress2,
+#barProgress3{
+  height: 100%;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.centeredProgress{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
